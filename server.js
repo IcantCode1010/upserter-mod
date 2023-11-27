@@ -75,6 +75,8 @@ app.post('/upsert', async (req, res) => {
     try {
   
       const { fileUrl, filename } = req.body;
+      
+      console.log('Request Body:', req.body);
 
       if (!fileUrl) {
         return res.status(400).json({ error: 'fileUrl is required' });
