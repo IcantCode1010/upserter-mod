@@ -8,7 +8,7 @@ const port = 3000;
 const axios = require('axios');
 
 
-//app.use(express.json());
+app.use(express.json());
 
 k = process.env.PINE;
 
@@ -74,9 +74,8 @@ console.log(k);
 app.post('/upsert', async (req, res) => {
     try {
   
-      const { fileUrl, filename } = req.query;
-      console.log('fileUrl:', fileUrl);
-      console.log('filename:', filename);
+      const { fileUrl, filename } = req.body;
+
       console.log('Request Body:', req.body);
 
       if (!fileUrl) {
