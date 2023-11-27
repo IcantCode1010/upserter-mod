@@ -4,7 +4,7 @@ require('dotenv').config()
 //add express
 const express = require('express');
 const app = express();
-const port = 3001;
+const port = 3000;
 const axios = require('axios');
 
 
@@ -75,7 +75,8 @@ app.post('/upsert', async (req, res) => {
     try {
   
       const { fileUrl, filename } = req.body;
-      
+      console.log('fileUrl:', fileUrl);
+      console.log('filename:', filename);
       console.log('Request Body:', req.body);
 
       if (!fileUrl) {
