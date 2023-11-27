@@ -96,7 +96,7 @@ app.post('/upsert', async (req, res) => {
 
       pages.forEach(async (pageText, index) => {
         if (pageText.length > 20) {
-          await upsertToPinecone(index + 1, pageText, filename);
+          await upsertToPinecone(index, pageText, filename);
         }
       });
 
