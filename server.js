@@ -50,7 +50,7 @@ console.log(responseai.data.data[0].embedding);
 
           vectors: [
             {
-              metadata: {pagenumber: pageNumber, pdf_name: filename, text: pageText,  },
+              metadata: {pagenumber: pageNumber, pdf_name: filename, text: pageText, url: fileUrl  },
               id: Math.random().toString(36).substring(2, 7),
               values: responseai.data.data[0].embedding
             }
