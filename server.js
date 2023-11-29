@@ -16,7 +16,7 @@ openai = process.env.OPENAI;
 
 pineurl = process.env.URL;
 console.log(openai);
-async function upsertToPinecone(pageNumber, pageText, filename) {
+async function upsertToPinecone(pageNumber, pageText, filename, fileUrl) {
   const pineconeEndpoint = `${pineurl}/vectors/upsert`;
   const headers = {
     'accept': 'application/json',
@@ -25,8 +25,7 @@ async function upsertToPinecone(pageNumber, pageText, filename) {
   };
 
 
-  id = Math.random().toString(36).substring(2, 7);
-  console.log(id);
+
   try {
     console.log(pageText);
     const responseai = await axios.post('https://api.openai.com/v1/embeddings', {
@@ -93,10 +92,10 @@ app.post('/upsert', async (req, res) => {
       const pages = pdfData.text.split('\n\n');
   
       // Filter and store pages with content longer than 20 charactersq
-
+    
       pages.forEach(async (pageText, index) => {
         if (pageText.length > 20) {
-          await upsertToPinecone(index, pageText, filename);
+          await upsertToPinecone(index, pageText, filename, fileUrl);
         }
       });
 
