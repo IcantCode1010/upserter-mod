@@ -53,8 +53,8 @@ console.log(responseai.data.data[0].embedding);
               id: Math.random().toString(36).substring(2, 7),
               values: responseai.data.data[0].embedding
             }
-          ],
-          namespace: 'pdfs'
+          ]//,
+          //namespace: 'pdfs'
       }, { headers });
   
       console.log(`Page ${pageNumber} upserted to Pinecone. Response:`, response.data);
