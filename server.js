@@ -145,9 +145,8 @@ app.post('/upload', async (req, res) => {
       }
     
       // Output the metadata array as JSON
-      const result = JSON.stringify(metadataArray);
-      console.log(result);
-      res.json({ result });
+      const result = metadataArray;
+      res.json(result);
     }
     
     // Call the function to start processing URLs
