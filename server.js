@@ -145,7 +145,7 @@ app.post('/upload', async (req, res) => {
       }
     
       // Output the metadata array as JSON
-      const result = JSON.stringify(metadataArray, null, 2);
+      const result = JSON.stringify(metadataArray);
       console.log(result);
       res.json({ result });
     }
