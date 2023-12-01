@@ -111,6 +111,55 @@ console.log(result)
   }
 });
 
+
+app.post('/upload', async (req, res) => {
+  try {
+
+    const { fileUrls } = req.body;
+
+    console.log('Request Body:', req.body);
+
+    // Parse the PDF
+    async function fetchMetadata(url) {
+      try {
+        const response = await axios.get(url, { responseType: 'arraybuffer' });
+        const dataBuffer = Buffer.from(response.data);
+        const data = await pdf(dataBuffer);
+        const metadata = data.info.Title;
+    
+        return metadata;
+      } catch (error) {
+        console.error('Error:', error);
+        return null;
+      }
+    }
+    
+    async function processUrls() {
+      const metadataArray = [];
+    
+      for (const url of fileUrls) {
+        const metadata = await fetchMetadata(url);
+        if (metadata !== null) {
+          metadataArray.push({ url, name: metadata });
+        }
+      }
+    
+      // Output the metadata array as JSON
+      const result = JSON.stringify(metadataArray, null, 2);
+      console.log(result);
+      res.json({ result });
+    }
+    
+    // Call the function to start processing URLs
+    processUrls();
+
+
+} catch (error) {
+  console.error('Error processing the PDF:', error);
+  res.status(500).json({ error: 'Internal server error' });
+}
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
