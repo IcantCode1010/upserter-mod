@@ -53,8 +53,8 @@ console.log(responseai.data.data[0].embedding);
               id: Math.random().toString(36).substring(2, 7),
               values: responseai.data.data[0].embedding
             }
-          ]//,
-          //namespace: 'pdfs'
+          ],
+          namespace: 'pdf-test'
       }, { headers });
   
       console.log(`Page ${pageNumber} upserted to Pinecone. Response:`, response.data);
@@ -146,6 +146,7 @@ app.post('/upload', async (req, res) => {
     
       // Output the metadata array as JSON
       const result = metadataArray;
+      console.log(result)
       res.json(result);
     }
     
