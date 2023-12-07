@@ -115,13 +115,16 @@ console.log(result)
 app.post('/upload', async (req, res) => {
   try {
 
-    const { fileUrls } = req.body;
+    const { fileUrls, Version } = req.body;
 
     console.log('Request Body:', req.body);
 
     // Parse the PDF
     async function fetchMetadata(url) {
       try {
+
+
+
         const response = await axios.get(url, { responseType: 'arraybuffer' });
         const dataBuffer = Buffer.from(response.data);
         const data = await pdf(dataBuffer);
@@ -136,16 +139,35 @@ app.post('/upload', async (req, res) => {
     
     async function processUrls() {
       const metadataArray = [];
-    
+
       for (const url of fileUrls) {
         const metadata = await fetchMetadata(url);
         if (metadata !== null) {
-          metadataArray.push({ url, name: metadata });
+          const jsonItem = { url, name: metadata };  // Create a JSON object
+          metadataArray.push(jsonItem);
         }
+      }        const result = metadataArray;
+
+            try {
+
+        const headers = {
+          'accept': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
+          'Version': Version,
+          'Authorization': 'Bearer f62ca8e027fa999d14e21dba9cc8db41'
+        };
+      
+        const requestBody = metadataArray.map(item => JSON.stringify(item)).join('\n');
+        console.log(requestBody);
+        console.log(metadataArray);
+
+        await axios.post(`https://pdfchatapp.bubbleapps.io/${Version}/api/1.1/wf/up/`, {result}, {
+          headers: headers,
+        });
+      } catch (error) {
+        console.error('Error making POST request:', error);
       }
-    
       // Output the metadata array as JSON
-      const result = metadataArray;
       console.log(result)
       res.json(result);
     }
