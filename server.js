@@ -118,6 +118,7 @@ app.post('/upload', async (req, res) => {
     const { fileUrls, Version } = req.body;
 
     console.log('Request Body:', req.body);
+    res.json('result');
 
     // Parse the PDF
     async function fetchMetadata(url) {
@@ -169,7 +170,6 @@ app.post('/upload', async (req, res) => {
       }
       // Output the metadata array as JSON
       console.log(result)
-      res.json(result);
     }
     
     // Call the function to start processing URLs
