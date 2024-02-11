@@ -54,7 +54,7 @@ console.log(responseai.data.data[0].embedding);
               values: responseai.data.data[0].embedding
             }
           ],
-          namespace: 'pdf-test'
+          namespace: 'airbus'
       }, { headers });
   
       console.log(`Page ${pageNumber} upserted to Pinecone. Response:`, response.data);
